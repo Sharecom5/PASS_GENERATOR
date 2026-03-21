@@ -58,7 +58,7 @@ export default function SaaSAdminDashboard() {
     
     try {
       // 1. Safe Processing for LAKHS of records (Chunking System)
-      const allRows = campaign.csvData.split('\\n').filter(r => r.trim() !== '')
+      const allRows = campaign.csvData.split('\n').filter(r => r.trim() !== '')
       const CHUNK_SIZE = 5000 // Break massive data into completely safe 5k increments to protect Server & Browser RAM
 
       let totalProcessed = 0
