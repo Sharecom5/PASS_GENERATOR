@@ -12,4 +12,4 @@ const SettingsSchema = new Schema<ISettings>({
   updatedAt: { type: Date, default: Date.now }
 })
 
-export const Settings = mongoose.models.Settings || mongoose.model<ISettings>('Settings', SettingsSchema)
+export const Settings = (mongoose.models.Settings as mongoose.Model<ISettings>) || mongoose.model<ISettings>('Settings', SettingsSchema)

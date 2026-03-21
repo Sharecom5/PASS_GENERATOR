@@ -44,4 +44,4 @@ const VisitorSchema = new Schema<IVisitor>({
   otpExpiry:    { type: Date },
 })
 
-export const Visitor = mongoose.models.Visitor || mongoose.model<IVisitor>('Visitor', VisitorSchema)
+export const Visitor = (mongoose.models.Visitor as mongoose.Model<IVisitor>) || mongoose.model<IVisitor>('Visitor', VisitorSchema)

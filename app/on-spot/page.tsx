@@ -14,7 +14,9 @@ export default function OnSpotRegistration() {
     email: '',
     phone: '',
     company: '',
-    eventName: 'Live Event Door Entry',
+    eventName: process.env.NEXT_PUBLIC_EVENT_NAME || 'Live Event Door Entry',
+    eventDate: process.env.NEXT_PUBLIC_EVENT_DATE || 'Today',
+    eventVenue: process.env.NEXT_PUBLIC_EVENT_VENUE || 'Main Gate',
     passType: 'Visitor'
   })
 

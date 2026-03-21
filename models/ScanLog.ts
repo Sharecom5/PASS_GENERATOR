@@ -16,4 +16,4 @@ const ScanLogSchema = new Schema<IScanLog>({
   deviceInfo:  { type: String },
 })
 
-export const ScanLog = mongoose.models.ScanLog || mongoose.model<IScanLog>('ScanLog', ScanLogSchema)
+export const ScanLog = (mongoose.models.ScanLog as mongoose.Model<IScanLog>) || mongoose.model<IScanLog>('ScanLog', ScanLogSchema)

@@ -13,7 +13,9 @@ export default function SelfServiceDoorRegistration() {
     email: '',
     phone: '',
     company: '',
-    eventName: 'Annual Tech Summit', // In a real app, this might come from the URL slug
+    eventName: process.env.NEXT_PUBLIC_EVENT_NAME || 'Annual Tech Summit',
+    eventDate: process.env.NEXT_PUBLIC_EVENT_DATE || '2025-12-15',
+    eventVenue: process.env.NEXT_PUBLIC_EVENT_VENUE || 'Hall A, New Delhi',
     passType: 'Visitor'
   })
 
