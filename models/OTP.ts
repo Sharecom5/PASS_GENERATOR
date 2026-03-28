@@ -17,4 +17,4 @@ const OTPSchema = new Schema<IOTP>({
 // MongoDB auto-deletes documents when expiresAt is reached
 OTPSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 })
 
-export const OTP = mongoose.models.OTP || mongoose.model<IOTP>('OTP', OTPSchema)
+export const OTP = (mongoose.models.OTP as mongoose.Model<IOTP>) || mongoose.model<IOTP>('OTP', OTPSchema)

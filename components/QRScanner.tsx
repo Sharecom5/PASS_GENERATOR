@@ -28,7 +28,7 @@ export default function QRScanner({ staffPin }: { staffPin: string }) {
 
   useEffect(() => {
     startScanner()
-    return () => stopScanner()
+    return () => { stopScanner() }
   }, [])
 
   async function startScanner() {

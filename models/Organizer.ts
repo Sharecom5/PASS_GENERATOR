@@ -26,4 +26,4 @@ const OrganizerSchema = new Schema<IOrganizer>({
   createdAt: { type: Date, default: Date.now },
 })
 
-export const Organizer = mongoose.models.Organizer || mongoose.model<IOrganizer>('Organizer', OrganizerSchema)
+export const Organizer = (mongoose.models.Organizer as mongoose.Model<IOrganizer>) || mongoose.model<IOrganizer>('Organizer', OrganizerSchema)

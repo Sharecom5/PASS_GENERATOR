@@ -139,7 +139,7 @@ export default function PassCard({
 
       {showDownload && (
         <button
-          onClick={handleDownload}
+          onClick={() => handleDownload('png')}
           className="w-full mt-6 flex items-center justify-center gap-2 py-4 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm font-bold tracking-wide hover:bg-slate-800 hover:border-slate-700 transition-all group shadow-md"
         >
           <Download className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />

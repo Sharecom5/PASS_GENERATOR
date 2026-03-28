@@ -5,7 +5,7 @@ import { connectDB } from "@/lib/mongodb"
 import { Organizer } from "@/models/Organizer"
 import bcrypt from "bcryptjs"
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session.user && token.sub) {
-        session.user.id = token.sub
+        (session.user as any).id = token.sub
       }
       return session
     },
