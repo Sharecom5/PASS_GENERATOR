@@ -4,6 +4,8 @@ import { connectDB } from '@/lib/mongodb'
 import { Visitor } from '@/models/Visitor'
 import { signToken, authFromRequest } from '@/lib/jwt'
 
+export const dynamic = 'force-dynamic'
+
 // POST /api/admin/login
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json()

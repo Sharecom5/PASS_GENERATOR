@@ -5,6 +5,8 @@ import { authFromRequest } from '@/lib/jwt'
 import { sendPassEmail } from '@/lib/resend'
 import { generateQRCodeBase64 } from '@/lib/qrcode'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(req: NextRequest) {
   const auth = authFromRequest(req)
   if (!auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
