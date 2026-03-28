@@ -23,6 +23,7 @@ export async function POST(req: Request) {
         const name = cols[0] || 'Guest'
         const email = cols[1] || 'no-email@test.com'
         const passType = cols[2] || 'Visitor'
+        const company = cols[3] || ''
 
         // Extremely fast random 6 character alphanumeric passID
         const uniqueId = crypto.randomBytes(3).toString('hex').toUpperCase()
@@ -34,6 +35,7 @@ export async function POST(req: Request) {
           name,
           email,
           phone: '0000000000', // bulk fallback
+          company,
           passType,
           eventName: eventName || 'Company Event',
           eventDate: eventDate || 'TBD',
@@ -42,7 +44,7 @@ export async function POST(req: Request) {
           createdAt: new Date()
         }
 
-        generatedPasses.push({ name, email, passType, passId })
+        generatedPasses.push({ name, email, passType, passId, company })
 
         bulkOps.push({
           insertOne: {
