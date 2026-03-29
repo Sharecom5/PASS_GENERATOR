@@ -44,7 +44,7 @@ export default function OnSpotRegistration() {
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 font-sans text-slate-100 selection:bg-blue-500/30">
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-5xl">
         
         {/* Header */}
         <div className="text-center mb-10 mt-8">
@@ -55,15 +55,15 @@ export default function OnSpotRegistration() {
           <p className="text-slate-400 mt-2 font-medium">Create instant passes for walk-in attendees at the gate.</p>
         </div>
 
-        <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden">
-          
-          {error && (
-            <div className="mb-6 bg-red-500/10 text-red-400 border border-red-500/20 text-sm font-bold p-4 rounded-xl flex items-center gap-3">
-              <AlertCircle className="w-5 h-5" /> {error}
-            </div>
-          )}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden">
+            
+            {error && (
+              <div className="mb-6 bg-red-500/10 text-red-400 border border-red-500/20 text-sm font-bold p-4 rounded-xl flex items-center gap-3">
+                <AlertCircle className="w-5 h-5" /> {error}
+              </div>
+            )}
 
-          {step === 'form' && (
             <form onSubmit={handleRegister} className="space-y-6 animate-in slide-in-from-bottom-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -99,46 +99,48 @@ export default function OnSpotRegistration() {
               </div>
 
               <button type="submit" disabled={loading || !formData.name} className="w-full mt-4 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold rounded-2xl hover:brightness-110 shadow-lg shadow-blue-600/30 flex justify-center items-center gap-3 group disabled:opacity-50">
-                {loading ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div> : <><FileSignature className="w-6 h-6" /> Generate Official Pass Instantly <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>}
+                {loading ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div> : <><FileSignature className="w-6 h-6" /> Generate Official Pass <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>}
               </button>
             </form>
-          )}
+          </div>
 
-          {step === 'pass' && passData && (
-            <div className="text-center animate-in zoom-in-95 flex flex-col items-center">
-              
-              <h3 className="font-bold text-emerald-400 text-lg uppercase tracking-widest mb-6">Pass Generated Successfully</h3>
+          <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden flex flex-col items-center justify-center min-h-[400px]">
+            {passData ? (
+              <div className="text-center animate-in zoom-in-95 flex flex-col items-center w-full">
+                <h3 className="font-bold text-emerald-400 text-lg uppercase tracking-widest mb-6">Pass Generated</h3>
 
-              {/* Live Ticket UI */}
-              <div id="print-section" className="w-full max-w-sm bg-white text-slate-900 rounded-[2rem] p-8 relative shadow-[0_0_40px_rgba(59,130,246,0.2)]">
-                
-                <div className="absolute top-4 right-4">
-                  <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">{passData.passType}</span>
+                {/* Live Ticket UI */}
+                <div id="print-section" className="w-full max-w-sm bg-white text-slate-900 rounded-[2rem] p-8 relative shadow-[0_0_40px_rgba(59,130,246,0.2)]">
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">{passData.passType}</span>
+                  </div>
+                  <div className="pt-8 pb-6 border-b border-dashed border-slate-200">
+                    <h4 className="text-3xl font-black mb-1 leading-tight tracking-tight">{passData.name}</h4>
+                    <p className="text-slate-500 font-bold text-sm tracking-wide">{passData.eventName}</p>
+                  </div>
+                  <div className="py-6 flex flex-col items-center justify-center">
+                    <img src={passData.qrCode} alt="Walkin QR" className="w-48 h-48 rounded-xl border-4 border-slate-100" />
+                    <p className="font-mono text-xs text-slate-400 mt-4 tracking-widest">{passData.passId}</p>
+                  </div>
                 </div>
 
-                <div className="pt-8 pb-6 border-b border-dashed border-slate-200">
-                  <h4 className="text-3xl font-black mb-1 leading-tight tracking-tight">{passData.name}</h4>
-                  <p className="text-slate-500 font-bold text-sm tracking-wide">{passData.eventName}</p>
-                </div>
-
-                <div className="py-6 flex flex-col items-center justify-center">
-                  <img src={passData.qrCode} alt="Walkin QR" className="w-48 h-48 rounded-xl border-4 border-slate-100" />
-                  <p className="font-mono text-xs text-slate-400 mt-4 tracking-widest">{passData.passId}</p>
+                <div className="flex gap-4 w-full mt-10">
+                  <button onClick={() => window.print()} className="flex-1 py-4 bg-slate-800 text-white font-bold rounded-2xl hover:bg-slate-700 transition-colors flex justify-center items-center gap-2">
+                    <Printer className="w-5 h-5" /> Print Pass
+                  </button>
+                  <button onClick={() => {setPassData(null); setFormData({...formData, name: '', email: '', phone: '', company: ''})}} className="flex-1 py-4 bg-blue-600/20 text-blue-400 font-bold rounded-2xl hover:bg-blue-600/30 transition-colors flex justify-center items-center gap-2">
+                    <PlusCircle className="w-5 h-5" /> Next Person
+                  </button>
                 </div>
               </div>
-
-              <div className="flex gap-4 w-full mt-10">
-                <button onClick={() => window.print()} className="flex-1 py-4 bg-slate-800 text-white font-bold rounded-2xl hover:bg-slate-700 transition-colors flex justify-center items-center gap-2">
-                  <Printer className="w-5 h-5" /> Print Pass
-                </button>
-                <button onClick={() => {setStep('form'); setFormData({...formData, name: '', email: '', phone: '', company: ''})}} className="flex-1 py-4 bg-blue-600/20 text-blue-400 font-bold rounded-2xl hover:bg-blue-600/30 transition-colors flex justify-center items-center gap-2">
-                  <PlusCircle className="w-5 h-5" /> Next Person
-                </button>
+            ) : (
+              <div className="text-center text-slate-500 flex flex-col items-center opacity-50">
+                <QrCode className="w-24 h-24 mb-4 text-slate-700" />
+                <p className="font-bold tracking-widest uppercase mb-2">No Pass Generated</p>
+                <p className="text-sm">Fill out the form on the left to instantly generate a secure QR pass.</p>
               </div>
-
-            </div>
-          )}
-
+            )}
+          </div>
         </div>
       </div>
 

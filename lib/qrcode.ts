@@ -1,16 +1,8 @@
 import QRCode from 'qrcode'
 
-interface QRData {
-  passId: string
-  name: string
-  event: string
-  type: string
-}
-
 // Returns base64 PNG data URL — embed directly in email/PDF
-export async function generateQRCodeBase64(data: QRData): Promise<string> {
-  const payload = JSON.stringify(data)
-  const dataUrl = await QRCode.toDataURL(payload, {
+export async function generateQRCodeBase64(url: string): Promise<string> {
+  const dataUrl = await QRCode.toDataURL(url, {
     errorCorrectionLevel: 'M',
     type: 'image/png',
     width: 300,
@@ -24,9 +16,8 @@ export async function generateQRCodeBase64(data: QRData): Promise<string> {
 }
 
 // Returns SVG string — for embedding in HTML emails
-export async function generateQRCodeSVG(data: QRData): Promise<string> {
-  const payload = JSON.stringify(data)
-  const svg = await QRCode.toString(payload, {
+export async function generateQRCodeSVG(url: string): Promise<string> {
+  const svg = await QRCode.toString(url, {
     type: 'svg',
     errorCorrectionLevel: 'M',
     width: 200,
@@ -36,9 +27,8 @@ export async function generateQRCodeSVG(data: QRData): Promise<string> {
 }
 
 // Returns Buffer — for saving to Cloudinary
-export async function generateQRCodeBuffer(data: QRData): Promise<Buffer> {
-  const payload = JSON.stringify(data)
-  const buffer = await QRCode.toBuffer(payload, {
+export async function generateQRCodeBuffer(url: string): Promise<Buffer> {
+  const buffer = await QRCode.toBuffer(url, {
     errorCorrectionLevel: 'M',
     type: 'png',
     width: 400,

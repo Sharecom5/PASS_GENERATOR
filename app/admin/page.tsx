@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Upload, LayoutTemplate, Users, Send, Settings, CheckCircle2, QrCode, Download, ScanLine, LayoutDashboard, Ticket, ArrowRight, ImagePlus } from 'lucide-react'
+import { Upload, LayoutTemplate, Users, Send, Settings, CheckCircle2, QrCode, Download, ScanLine, LayoutDashboard, Ticket, ArrowRight, ImagePlus, PlusCircle } from 'lucide-react'
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import JSZip from 'jszip'
@@ -278,6 +278,9 @@ export default function SaaSAdminDashboard() {
           <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 font-semibold border border-indigo-500/20 transition-all">
             <Ticket className="w-4 h-4" /> Bulk Generator
           </button>
+          <a href="/on-spot" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#18181B] hover:text-zinc-200 transition-all font-medium">
+            <PlusCircle className="w-4 h-4" /> QR Code Generator
+          </a>
           <a href="/scan-logs" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#18181B] hover:text-zinc-200 transition-all font-medium">
             <ScanLine className="w-4 h-4" /> Scan Logs
           </a>

@@ -3,6 +3,9 @@ import './globals.css'
 export const metadata = {
   title: 'Event Pass System',
   description: 'Event Management and Registration',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 import { Providers } from '@/components/Providers'

@@ -40,7 +40,9 @@ export async function POST(req: Request) {
 
     await visitor.save()
 
-    const qrDataUrl = await QRCode.toDataURL(passId, { margin: 1, width: 300 })
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const verifyUrl = `${baseUrl}/verify/${passId}`
+    const qrDataUrl = await QRCode.toDataURL(verifyUrl, { margin: 1, width: 300 })
 
     // Send email if provided — don't block pass generation if email fails
     if (email && email.includes('@')) {

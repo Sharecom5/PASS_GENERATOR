@@ -60,7 +60,9 @@ export async function POST(req: NextRequest) {
   const passId = generatePassId()
 
   // Generate QR code
-  const qrBase64 = await generateQRCodeBase64({ passId, name, event: eventName, type: passType || 'Visitor' })
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+  const verifyUrl = `${baseUrl}/verify/${passId}`
+  const qrBase64 = await generateQRCodeBase64(verifyUrl)
 
   // Upload QR to Cloudinary
   let qrCodeUrl = ''
